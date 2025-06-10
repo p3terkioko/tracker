@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     feather.replace(); // Initialize Feather icons
 
     const loginButton = document.getElementById('login-button');
+    const logoutButton = document.getElementById('logout-button');
     const authSection = document.getElementById('auth-section');
     const dashboardHeaderSection = document.getElementById('dashboard-header-section');
     const dashboardChartsSection = document.getElementById('dashboard-charts-section');
@@ -251,17 +252,28 @@ document.addEventListener('DOMContentLoaded', () => {
         dashboardHeaderSection.classList.add('hidden');
         dashboardChartsSection.classList.add('hidden');
         rightSidebarContent.classList.add('hidden');
+        if (logoutButton) logoutButton.classList.add('hidden');
     }
 
-    /**
-     * Updates the UI for a logged-in state, showing dashboard content.
-     */
+    // Logout logic
+    if (logoutButton) {
+        logoutButton.addEventListener('click', () => {
+            clearSpotifyTokens();
+            updateUIForLoggedOut();
+            showUserMessage('Logged out of Spotify.', 'success');
+            // Optionally, reload the page:
+            // window.location.reload();
+        });
+    }
+
+    // Show/hide logout button based on login state
     function updateUIForLoggedIn() {
         loginButton.classList.add('hidden');
         authSection.classList.add('hidden');
         dashboardHeaderSection.classList.remove('hidden');
         dashboardChartsSection.classList.remove('hidden');
         rightSidebarContent.classList.remove('hidden');
+        if (logoutButton) logoutButton.classList.remove('hidden');
     }
 
     /**
