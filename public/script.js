@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Event Listeners ---
     loginButton.addEventListener('click', () => {
-        window.location.href = 'https://tracker-flame-pi.vercel.app/auth/login';
+        window.location.href = 'https://tracker-xbj3.onrender.com/auth/login';
     });
 
     let showingAllTracks = false;
