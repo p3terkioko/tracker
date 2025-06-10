@@ -1,0 +1,148 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KamiLimu.inthe.Ears - Music Insights Dashboard</title>
+    <!-- Feather Icons for iconography -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <div class="logo" id="app-logo"></div>
+            <nav>
+                <div class="nav-item active">Home</div>
+                <div class="nav-item">Tracks</div>
+                <div class="nav-item">Contributors</div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="main-dashboard-content">
+            <!-- Initial Login Prompt / Loading -->
+            <div id="auth-section" class="header-section text-center">
+                <h1 id="overview-title" class="overview-title">Welcome to KamiLimu.inthe.Ears</h1>
+                <p id="auth-message" class="text-gray-400 mt-4">Please log in to analyze your Spotify playlist.</p>
+                <button id="login-button" class="btn mt-6">Login with Spotify</button>
+                <div id="loading-indicator" class="mt-8 text-green-400 font-semibold text-lg animate-pulse hidden">
+                    <i data-feather="loader" class="inline-block align-middle animate-spin mr-2"></i> Loading data...
+                </div>
+                <div id="error-message" class="mt-8 text-red-500 font-semibold text-lg hidden">
+                    <i data-feather="alert-triangle" class="inline-block align-middle mr-2"></i> An error occurred. Please try again later.
+                </div>
+            </div>
+
+            <!-- Header Section (Dashboard Content - hidden until logged in) -->
+            <div id="dashboard-header-section" class="header-section hidden">
+                <h1 class="overview-title" id="playlist-overview-title">Playlist Overview</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Tracks</div>
+                        <div class="stat-number" id="total-tracks-stat">0</div>
+                        <div class="stat-label">tracks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Top Artist</div>
+                        <div class="stat-value" id="top-artists-name-stat">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Top Genre</div>
+                        <div class="stat-value" id="top-genres-name-stat">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Top Contributor</div>
+                        <div class="stat-value" id="top-contributors-name-stat">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Charts/Lists Section (Dashboard Content - hidden until logged in) -->
+            <div id="dashboard-charts-section" class="charts-section hidden">
+                <div class="chart-container">
+                    <div class="chart-title">Top Artists
+                        <span class="see-all-space"></span>
+                        <button id="see-all-artists-btn" class="see-all-btn">See All</button>
+                    </div>
+                    <!-- Changed from bar-chart to a list display -->
+                    <div class="artists-list" id="top-artists-list-display">
+                        <p class="text-gray-500 text-center mt-4">Loading top artists...</p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-title">Top Genres
+                        <span class="see-all-space"></span>
+                        <button id="see-all-genres-btn" class="see-all-btn">See All</button>
+                    </div>
+                    <!-- Changed from bar-chart to a list display -->
+                    <div class="genres-list" id="genre-distribution-list">
+                        <p class="text-gray-500 text-center mt-4">Loading genres...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Playlist Tracks (now below charts, full width) -->
+            <div class="playlist-section-wide">
+                <div class="section-title">Playlist Tracks</div>
+                <input type="text" class="search-box" id="track-search-box" placeholder="Search tracks">
+                <div id="playlist-tracks-list">
+                    <!-- Dynamic track items will go here -->
+                    <p class="text-gray-500 text-center mt-4" id="tracks-loading-message">Loading tracks...</p>
+                </div>
+                <button id="show-all-tracks-btn" class="btn mt-4 hidden">Show All</button>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="right-sidebar" id="right-sidebar-content">
+            <!-- Top Contributors (moved above tracks) -->
+            <div class="contributors-section">
+                <div class="section-title">Top Contributors
+                    <button id="see-all-contributors-btn" class="see-all-btn">See All</button>
+                </div>
+                <div class="top-contributors" id="top-contributors-display">
+                    <!-- Top contributors will go here -->
+                    <p class="text-gray-500 text-center mt-4">Loading contributors...</p>
+                </div>
+                <div id="all-contributors-list" class="mt-4">
+                    <!-- All contributors list will go here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message element for showUserMessage -->
+    <div id="user-message"></div>
+
+    <!-- Modals for See All popups -->
+    <div id="artists-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" id="close-artists-modal">&times;</span>
+            <h2>All Artists</h2>
+            <div id="all-artists-modal-list"></div>
+        </div>
+    </div>
+    <div id="genres-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" id="close-genres-modal">&times;</span>
+            <h2>All Genres</h2>
+            <div id="all-genres-modal-list"></div>
+        </div>
+    </div>
+
+    <!-- Modal for Contributors -->
+    <div id="contributors-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" id="close-contributors-modal">&times;</span>
+            <h2>All Contributors</h2>
+            <div id="all-contributors-modal-list"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

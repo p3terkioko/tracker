@@ -1,0 +1,759 @@
+/* public/style.css */
+/* Minimal reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0f0a; /* Dark green/black background */
+    color: #ffffff;
+    overflow-x: hidden; /* Prevent horizontal scrolling unless absolutely necessary for specific components */
+}
+
+/* Main Dashboard Layout */
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  background: #16251d;
+}
+
+/* Left Sidebar */
+.sidebar {
+  width: 220px;
+  background: #1a2e22;
+  padding: 2rem 1rem 1rem 1rem;
+  min-height: 100vh;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #4ade80; /* Green highlight for logo */
+}
+
+.logo::before {
+    content: '🎵'; /* Unicode musical note icon */
+    font-size: 20px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    color: #8a9a8a; /* Muted grey for inactive nav items */
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    color: #4ade80; /* Green on hover */
+    background-color: rgba(74, 222, 128, 0.1); /* Subtle green background on hover */
+}
+
+.nav-item.active {
+    color: #4ade80; /* Active green color */
+    background-color: rgba(74, 222, 128, 0.2); /* More prominent green background for active */
+    font-weight: 600;
+}
+
+.nav-item::before {
+    width: 16px;
+    height: 16px;
+    /* Placeholder for icon, actual icons will be rendered by Feather Icons */
+    /* content: '○'; */
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1 1 0%;
+  padding: 2rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.header-section {
+    background: linear-gradient(135deg, #2a4a3a, #1a3a2a); /* Dark green gradient */
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    text-align: center; /* For login section */
+}
+
+/* Abstract background shape for header */
+.header-section::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 100px;
+    height: 100px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 L30 90 L70 90 Z" fill="%23ffffff20"/></svg>'); /* Faint white triangle */
+    opacity: 0.3;
+    transform: rotate(45deg); /* Added rotation for more dynamic look */
+}
+
+.overview-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.text-gray-400 { color: #a0aec0; } /* Tailwind-like class for muted text */
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-8 { margin-top: 2rem; }
+.hidden { display: none; }
+.inline-block { display: inline-block; }
+.align-middle { vertical-align: middle; }
+.animate-spin { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.mr-2 { margin-right: 0.5rem; }
+.text-green-400 { color: #4ade80; }
+.text-red-500 { color: #ef4444; }
+.font-semibold { font-weight: 600; }
+.text-lg { font-size: 1.125rem; }
+
+
+.stats-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+  align-items: stretch;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #1a2520; /* Match right sidebar and chart containers */
+  border-radius: 16px;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.stat-label {
+  color: #8a9a8a; /* Match muted text color */
+  font-size: 1.1em;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.stat-number, .stat-value {
+  color: #fff; /* Make all stat values white for consistency */
+  font-size: 2.2em;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 900px) {
+  .stats-grid {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  .stat-card {
+    min-width: unset;
+    width: 100%;
+  }
+}
+
+/* Charts Section (now also includes lists) */
+.charts-section {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chart-container {
+  flex: 1 1 0%;
+  background: #203728;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.chart-title {
+    font-size: 18px; /* Slightly larger */
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #ffffff; /* White title for better contrast */
+}
+
+/* Generic list styling for artists and genres */
+.artists-list, .genres-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none; /* Remove default list bullets */
+    padding: 0;
+    margin: 0;
+    max-height: 250px; /* Limit height for scrolling if needed */
+    overflow-y: auto;
+}
+
+.artists-list-item, .genres-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #2a3a2a;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.artists-list-item:last-child, .genres-list-item:last-child {
+    border-bottom: none;
+}
+
+.artists-list-item-info, .genres-list-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.artists-list-item-name, .genres-list-item-name {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.artists-list-item-details, .genres-list-item-details {
+    color: #8a9a8a;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Adjustments for no bar charts */
+.bar-chart { /* This class will still exist in HTML but its styles are overridden/ignored for lists */
+    display: none;
+}
+.chart-labels { /* This class will still exist in HTML but its styles are overridden/ignored for lists */
+    display: none;
+}
+
+
+/* API Explorer Section */
+.api-section {
+    background: #1a2520;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 0; /* No extra top margin as it's part of main-content gap */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.api-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.api-endpoint {
+    background: #0f1a0f;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #2a3a2a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.endpoint-method {
+    color: #4ade80;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.endpoint-path {
+    color: #ffffff;
+    margin: 5px 0;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.endpoint-desc {
+    color: #8a9a8a;
+    font-size: 14px;
+}
+
+.code-block {
+    background: #0a1a0a;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 10px 0;
+    font-family: monospace;
+    font-size: 12px;
+    color: #4ade80;
+    border: 1px solid #2a3a2a;
+    overflow-x: auto; /* Allow scrolling for wide code blocks */
+}
+
+.btn {
+    background: #4ade80;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 10px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn:hover {
+    background: #22c55e;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #8a9a8a;
+    border: 1px solid #2a3a2a;
+}
+
+.btn-secondary:hover {
+    background: rgba(42, 58, 42, 0.3); /* Darker on hover */
+    color: #ffffff;
+}
+
+.see-all-btn {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 1em;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+}
+.see-all-btn:hover, .see-all-btn:focus {
+  background: #16a34a;
+  outline: none;
+}
+
+.see-all-space {
+  display: inline-block;
+  width: 1em;
+}
+
+/* Right Sidebar */
+.right-sidebar {
+  width: 320px;
+  background: #1a2e22;
+  padding: 2rem 1rem 1rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.playlist-section, .contributors-section, .tracks-section {
+    background: #1a2520;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.track-item, .contributor-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #2a3a2a;
+    transition: background-color 0.2s;
+    cursor: pointer; /* Indicate clickable */
+}
+
+.track-item:hover, .contributor-item:hover {
+    background-color: rgba(74, 222, 128, 0.1); /* Subtle green background on hover */
+    border-radius: 6px; /* Apply border-radius on hover */
+}
+.track-item:last-child, .contributor-item:last-child {
+    border-bottom: none;
+}
+
+.track-avatar, .contributor-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #4ade80, #22c55e); /* Green gradient avatar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #000;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.track-info, .contributor-info {
+    flex: 1;
+    overflow: hidden; /* Hide overflowing text */
+}
+
+.track-name, .contributor-name {
+    font-weight: 600;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-artist, .contributor-role {
+    color: #8a9a8a;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-time {
+    color: #6a7a6a;
+    font-size: 12px;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.search-box {
+    background: #0f1a0f;
+    border: 1px solid #2a3a2a;
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: #ffffff;
+    width: 100%;
+    margin-bottom: 15px;
+    outline: none; /* Remove default focus outline */
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-box:focus {
+    border-color: #4ade80; /* Green border on focus */
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.3); /* Green glow on focus */
+}
+
+.search-box::placeholder {
+    color: #6a7a6a;
+}
+
+.top-contributors {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: space-around; /* Distribute items */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.top-contributor {
+    text-align: center;
+    flex: 1;
+    min-width: 80px; /* Minimum width for contributor cards */
+    max-width: 120px;
+    padding: 5px;
+}
+
+.top-contributor-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #4ade80, #22c55e);
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.top-contributor-name {
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-contributor-tracks {
+    font-size: 10px;
+    color: #8a9a8a;
+}
+
+/* Simple modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.5);
+    justify-content: center; align-items: center;
+}
+.modal-content {
+    background: #222;
+    padding: 2rem;
+    border-radius: 8px;
+    max-height: 80vh;
+    overflow-y: auto;
+    min-width: 300px;
+    position: relative;
+}
+.modal.show { display: flex; }
+.close-modal {
+    float: right;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
+    margin-left: 12px;
+}
+
+/* Modal List Styles */
+.modal-list-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 1.08em;
+  border-bottom: 1px solid #333;
+  color: #fff;
+}
+.modal-list-item:last-child {
+  border-bottom: none;
+}
+.modal-list-name {
+  font-weight: 600;
+  color: #fff;
+  margin-right: 8px;
+  letter-spacing: 0.01em;
+}
+.modal-list-count {
+  color: #a3e635;
+  font-size: 0.98em;
+  font-weight: 400;
+}
+
+/* Optional: Add hover effect for clarity */
+.modal-list-item:hover {
+  background: #232d23;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .dashboard {
+        grid-template-columns: 200px 1fr 250px; /* Adjust column sizes */
+        gap: 15px;
+        padding: 15px;
+    }
+    .sidebar {
+        padding: 15px;
+    }
+    .header-section {
+        padding: 30px;
+    }
+    .overview-title {
+        font-size: 28px;
+    }
+    .stats-grid {
+        gap: 15px;
+    }
+    .stat-number {
+        font-size: 24px;
+    }
+    .chart-container {
+        padding: 15px;
+    }
+    .chart-title {
+        font-size: 16px;
+    }
+    .api-section {
+        padding: 15px;
+    }
+    .section-title {
+        font-size: 16px;
+    }
+    .track-item, .contributor-item, .api-endpoint {
+        padding: 10px;
+    }
+    .track-avatar, .contributor-avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    .top-contributor-avatar {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr; /* Stack columns on mobile */
+        gap: 15px;
+        padding: 15px;
+    }
+    .sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+        padding: 15px;
+    }
+    .main-content, .right-sidebar {
+        padding: 0; /* Remove padding as dashboard already has it */
+    }
+    .header-section {
+        padding: 25px;
+    }
+    .overview-title {
+        font-size: 24px;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for stats on small screens */
+        gap: 10px;
+    }
+    .charts-section {
+        grid-template-columns: 1fr; /* Stack charts */
+    }
+    .chart-container {
+        padding: 10px;
+    }
+    .bar-chart {
+        height: 120px; /* Reduce chart height */
+        gap: 5px;
+    }
+    .chart-labels {
+        font-size: 10px;
+    }
+    .api-section {
+        padding: 10px;
+    }
+    .api-endpoint {
+        padding: 10px;
+    }
+    .section-title {
+        font-size: 16px;
+    }
+    .search-box {
+        padding: 8px 12px;
+    }
+    .track-item, .contributor-item {
+        padding: 8px 0;
+        gap: 8px;
+    }
+    .track-avatar, .contributor-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+    .top-contributor-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+    .btn {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    .top-contributors {
+        flex-direction: column; /* Stack top contributors vertically */
+        align-items: center;
+    }
+    .top-contributor {
+        width: 100%; /* Full width for stacked items */
+        max-width: none;
+        padding: 10px 0;
+        border-bottom: 1px solid #2a3a2a;
+    }
+    .top-contributor:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 1100px) {
+  .dashboard {
+    flex-direction: column;
+  }
+  .sidebar, .right-sidebar {
+    width: 100%;
+    min-height: unset;
+    padding: 1rem 0.5rem;
+  }
+  .main-content {
+    padding: 1rem 0.5rem;
+  }
+  .charts-section {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .playlist-section-wide {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard {
+    flex-direction: column;
+  }
+  .sidebar, .right-sidebar {
+    width: 100%;
+    min-height: unset;
+    padding: 0.5rem 0.2rem;
+  }
+  .main-content {
+    padding: 0.5rem 0.2rem;
+  }
+  .charts-section {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .playlist-section-wide {
+    padding: 1rem 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .chart-container, .contributors-section {
+    padding: 1rem 0.5rem;
+  }
+}
