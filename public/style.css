@@ -180,6 +180,15 @@ body {
     min-width: unset;
     width: 100%;
   }
+  #dashboard-header-section {
+    margin-bottom: 2rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  #dashboard-header-section {
+    margin-bottom: 1.2rem !important;
+  }
 }
 
 /* Charts Section (now also includes lists) */
